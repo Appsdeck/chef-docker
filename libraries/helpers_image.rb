@@ -52,7 +52,7 @@ module DockerCookbook
       end
 
       def image_identifier
-        "#{repo}:#{tag}"
+        "#{new_resource.repo}:#{new_resource.tag}"
       end
 
       def import_image
@@ -64,7 +64,7 @@ module DockerCookbook
 
       def pull_image
         with_retries do
-          registry_host = parse_registry_host(repo)
+          registry_host = parse_registry_host(new_resource.repo)
           creds = node.run_state['docker_auth'] && node.run_state['docker_auth'][registry_host] || (node.run_state['docker_auth'] ||= {})['index.docker.io']
 
           original_image = Docker::Image.get(image_identifier, {}, connection) if Docker::Image.exist?(image_identifier, {}, connection)

@@ -326,7 +326,7 @@ module DockerCookbook
       validate_container_create
       call_action(:create)
       call_action(:start)
-      call_action(:delete) if autoremove
+      call_action(:delete) if new_resource.autoremove
     end
 
     action :run_if_missing do
